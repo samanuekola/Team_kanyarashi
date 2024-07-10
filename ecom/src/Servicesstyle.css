@@ -1,0 +1,45 @@
+.services-main{
+    margin-top: 84px;
+    background-image: url(./updatedimages/Services\ Cover\ Updated.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.about-section{
+    padding-top: 200px;
+    padding-bottom: 200px;
+    font-size: 60px;
+}
+.card-img{
+    border-top-left-radius:10px;
+    border-top-right-radius: 10px;
+}
+.card-text{
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius: 10px;
+}
+.bg-greenimg{
+    background-image: url(./images/servicesgreen.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+.ser-icon{
+    font-size: 70px;
+}
+.service-cards{
+    min-height: 200px;
+}
+@media (max-width:420px) {
+    .ser-icon{
+        font-size: 50px;
+    }
+}
+@media (max-width:990px) {
+    .ser-icon{
+        font-size: 60px;
+    }
+}

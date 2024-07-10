@@ -1,0 +1,13 @@
+.products-main{
+    margin-top: 84px;
+    background-image: url(./updatedimages/Products-Cover.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.about-section{
+    padding-top: 200px;
+    padding-bottom: 200px;
+    font-size: 60px;
+}
