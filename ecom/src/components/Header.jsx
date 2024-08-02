@@ -28,13 +28,13 @@ const Header = () => {
               <h6><Link to='/company'  class="nav-link p-2  hover-underline-animation nav-font">Company </Link></h6>
             </li>
             <li class="nav-item px-sm-3 px-md-3 px-3 py-sm-0 py-md-0 py-2">
-                <h6><Link to="/services" class="nav-link p-2  hover-underline-animation nav-font">Services</Link></h6>
+                <h6><Link to="/services" class="nav-link p-2  hover-underline-animation nav-font">Accessories</Link></h6>
             </li>
             <li class="nav-item px-sm-3 px-md-3 px-3 py-sm-0 py-md-0 py-2">
-              <h6><Link to="/products"class="nav-link p-2  hover-underline-animation nav-font">Products</Link></h6>
+              <h6><Link to="/products"class="nav-link p-2  hover-underline-animation nav-font">Internal Components</Link></h6>
             </li>
             <li class="nav-item px-sm-3 px-md-3 px-3 py-sm-0 py-md-0 py-2">
-              <h6><Link to="/projects" class="nav-link p-2  hover-underline-animation nav-font">Projects</Link></h6>
+              <h6><Link to="/projects" class="nav-link p-2  hover-underline-animation nav-font">Cables</Link></h6>
             </li>
             <li class="nav-item px-sm-3 px-md-3 px-3 py-sm-0 py-md-0 py-2">
                 <h6><Link to="#" class="nav-link p-2  hover-underline-animation nav-font">More</Link></h6>

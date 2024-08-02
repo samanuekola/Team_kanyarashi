@@ -1,9 +1,9 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Captcha = () => {
-  const [captchaImage, setCaptchaImage] = useState('');
+  const [captchaType, setCaptchaType] = useState('image'); 
+  const [captchaContent, setCaptchaContent] = useState('');
   const [captchaText, setCaptchaText] = useState('');
   const [userCaptcha, setUserCaptcha] = useState('');
   const [message, setMessage] = useState('');
@@ -12,19 +12,24 @@ const Captcha = () => {
 
   useEffect(() => {
     generateCaptcha();
-  }, []);
+  }, [captchaType]);
 
   const generateCaptcha = async () => {
-    const response = await axios.get('http://localhost:3000/generate-captcha');
-    setCaptchaImage(response.data.data);
-    setCaptchaText(response.data.text);
+    try {
+      const response = await axios.get(`http://localhost:3000/generate-captcha?type=${captchaType}`);
+      setCaptchaContent(response.data.data);
+      setCaptchaText(response.data.text);
+    } catch (error) {
+      console.error('Error generating captcha:', error);
+      setMessage('Error generating captcha. Please try again.');
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (lockout) {
-      setMessage('You need to wait for 30 mins');
+      setMessage('You need to wait for 30 minutes');
       return;
     }
 
@@ -40,10 +45,10 @@ const Captcha = () => {
         setTimeout(() => {
           setLockout(false);
           setAttempts(0);
-        }, 30 * 60 * 1000); 
-        setMessage('You need to wait for 30 mins');
+        }, 30 * 60 * 1000);
+        setMessage('You need to wait for 30 minutes');
       } else {
-        setMessage(`You only got ${2 - newAttempts} times to re-enter`);
+        setMessage(`You have ${2 - newAttempts} attempts left`);
       }
 
       generateCaptcha();
@@ -52,11 +57,52 @@ const Captcha = () => {
     setUserCaptcha('');
   };
 
+  const handleCaptchaTypeChange = (e) => {
+    setCaptchaType(e.target.value);
+    setUserCaptcha('');
+    setMessage('');
+  };
+
   return (
     <div className='m-4'>
       <h1>Captcha Verification</h1>
       <form onSubmit={handleSubmit}>
-        <div dangerouslySetInnerHTML={{ __html: captchaImage }} />
+        <div>
+          <label>
+            <input
+              type="radio"
+              value="image"
+              checked={captchaType === 'image'}
+              onChange={handleCaptchaTypeChange}
+            />
+            Image Captcha
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="math"
+              checked={captchaType === 'math'}
+              onChange={handleCaptchaTypeChange}
+            />
+            Math Equation Captcha
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="voice"
+              checked={captchaType === 'voice'}
+              onChange={handleCaptchaTypeChange}
+            />
+            Voice Captcha
+          </label>
+        </div>
+        {captchaType === 'voice' ? (
+          <audio controls>
+            <source src={captchaContent} type="audio/mp3" />
+          </audio>
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: captchaContent }} />
+        )}
         <div>
           <input
             type="text"
