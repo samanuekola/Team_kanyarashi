@@ -13,7 +13,7 @@ const Servicesdetailssection = ({ services }) => {
     } else {
       setCart([...carts, cartItem]);
 
-      // Send the item data to the backend
+      
       axios.post('http://localhost:3000/cart', cartItem)
         .then(response => {
           console.log('Item added to backend:', response.data);

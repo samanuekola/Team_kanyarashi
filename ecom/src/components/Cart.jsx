@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
 
@@ -28,22 +29,35 @@ const Cart = () => {
   };
 
   return (
-    <div className="container">
-      <h2>Cart</h2>
-      {cartItems.map(item => (
-        <div key={item._id} className="row py-2 align-items-center">
-          <div className="col-12 col-md-6">
-            <img src={item.imageUrl} className="img-fluid rounded" alt={item.name} />
-          </div>
-          <div className="col-12 col-md-6">
-            <h3>{item.name}</h3>
-            <p>{item.content}</p>
-            <button className='bg-danger' onClick={() => removeFromCart(item._id)}>Remove from cart</button>
-          </div>
+    <section className="container py-5 card-cart">
+      <h2 className="text-center mb-4">Your Cart</h2>
+      {cartItems.length === 0 ? (
+        <div className="text-center">
+          <p>Your cart is empty.</p>
+          <Link to="/projects" className="btn btn-primary">Continue Shopping</Link>
         </div>
-      ))}
-      <Link to="/captcha" class="nav-link p-2  hover-underline-animation nav-font">Proceed to payment</Link>
-    </div>
+      ) : (
+        <>
+          <div className="row gy-4">
+            {cartItems.map(item => (
+              <div key={item._id} className="col-12 col-md-6 col-lg-4">
+                <div className="card">
+                  <img src={item.imageUrl} className="card-img-top" alt={item.name} />
+                  <div className="card-body">
+                    <h5 className="card-title">{item.name}</h5>
+                    <p className="card-text">{item.content}</p>
+                    <button className="btn btn-danger" onClick={() => removeFromCart(item._id)}>Remove from cart</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="d-flex justify-content-center mt-4">
+            <Link to="/captcha" className="btn btn-success">Proceed to Payment</Link>
+          </div>
+        </>
+      )}
+    </section>
   );
 }
 

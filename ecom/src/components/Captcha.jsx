@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import '../Captcha.css'; 
 const Captcha = () => {
   const [captchaType, setCaptchaType] = useState('image'); 
   const [captchaContent, setCaptchaContent] = useState('');
@@ -64,10 +64,10 @@ const Captcha = () => {
   };
 
   return (
-    <div className='m-4'>
-      <h1>Captcha Verification</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="captcha-container">
+      <h1 className="captcha-header">Captcha Verification</h1>
+      <form onSubmit={handleSubmit} className="captcha-form">
+        <div className="captcha-type">
           <label>
             <input
               type="radio"
@@ -97,25 +97,26 @@ const Captcha = () => {
           </label>
         </div>
         {captchaType === 'voice' ? (
-          <audio controls>
+          <audio controls className="captcha-audio">
             <source src={captchaContent} type="audio/mp3" />
           </audio>
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: captchaContent }} />
+          <div dangerouslySetInnerHTML={{ __html: captchaContent }} className="captcha-image" />
         )}
-        <div>
+        <div className="captcha-input-group">
           <input
             type="text"
             value={userCaptcha}
             onChange={(e) => setUserCaptcha(e.target.value)}
             required
+            className="captcha-input"
           />
         </div>
-        <button type="submit" disabled={lockout}>
+        <button type="submit" disabled={lockout} className="captcha-button">
           Proceed to Payment
         </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className={`captcha-message ${lockout ? 'lockout' : ''}`}>{message}</p>}
     </div>
   );
 };

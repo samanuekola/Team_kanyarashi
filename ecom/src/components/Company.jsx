@@ -1,61 +1,57 @@
-import React from 'react'
-import directorimage from '../updatedimages/Person.png'
-import '../Companystyle.css'
+import React from 'react';
+import directorimage from '../updatedimages/Person.png';
+import '../Companystyle.css';
+
 const Company = () => {
   return (
     <div>
       <section className="company-main">
-        <h1 className="text-white text-center about-section" >About Us</h1>
+        <h1 className="text-white text-center about-section">About Us</h1>
       </section>
-      <section className="container ">
+      <section className="container">
         <div className="row py-4">
-            <div className="col-md-7 col-12 reveal fade-left">
-                <h1 className="py-2">About us</h1>
-                <p>
-                    Cs Max is a startup company based in India that provides green energy solutions for businesses and industries.
-                     We specialize in solar panels, wind turbines, and industrial solar equipment installation and maintenance. We also help our clients with buying land, obtaining permits, and designing customized plans for their energy needs.
-                </p>
-                <p>We believe that green energy is the future of India and the world, and we are committed to making it accessible and
-                     affordable for everyone. Our vision is to create a cleaner, greener, and more sustainable environment for our customers and society.</p>
-                <p>
-                    We have a team of experienced and qualified engineers, technicians, and consultants who are passionate about renewable energy and innovation. We use the latest technology
-                     and best practices to deliver high-quality products and services that meet or exceed our customers' expectations.
-                </p>
-                <p>
-                    We are always looking for new opportunities and challenges to grow and improve our business. If you are interested in working with us or learning more about our 
-                    offerings, please contact us today. We would love to hear from you!
-                </p>
+          <div className="col-md-7 col-12 reveal fade-left">
+            <h1 className="py-2">About Us</h1>
+            <p>
+              At TechWorld, we are at the forefront of the computer components industry. Based in India, we specialize in providing high-quality components for all your computing needs, including processors, graphics cards, memory, and storage solutions. Our mission is to offer the latest and most reliable hardware to enthusiasts, gamers, and professionals.
+            </p>
+            <p>
+              We believe that the right components can transform your computing experience. Our team is dedicated to sourcing and delivering cutting-edge technology that meets the diverse needs of our clients. Whether you’re building a high-performance gaming rig or upgrading your professional workstation, we are here to help you achieve optimal performance.
+            </p>
+            <p>
+              Our experienced team stays ahead of industry trends to provide products that offer superior reliability and innovation. We are committed to ensuring that our customers receive the best service and support, making your technology investment worthwhile.
+            </p>
+            <p>
+              We are excited to explore new advancements and opportunities in the computer components market. If you are interested in learning more about our products or partnering with us, please contact us. We look forward to helping you build the perfect computing setup!
+            </p>
+          </div>
+          <div className="col-md-5 col-12 reveal fade-right">
+            <div>
+              <img src={directorimage} alt="Mr. Yuva satwik" className="img-fluid rounded" />
             </div>
-            <div className="col-md-5 col-12 reveal fade-right">
-                <div>
-                    <img src={directorimage} />
+            <div className="about-chairman">
+              <div className="container">
+                <h4 className="pt-4">Mr. Yuva satwik</h4>
+                <h6>Founder & Director</h6>
+                <h5 className="py-3">From the Director's Desk</h5>
+                <div className="para">
+                  <p>
+                    Mr. Yuva satwik is the founder and director of TechWorld, a leading company in the computer components sector. With over 20 years of experience in technology and hardware, he has a deep understanding of the industry and a strong commitment to delivering exceptional products and services.
+                  </p>
+                  <p>
+                    As a pioneer in the computer components market, Mr. Yuva drives the company's vision of providing the latest and most reliable hardware solutions. His leadership ensures that TechWorld remains at the cutting edge of technology and continues to meet the evolving needs of its customers.
+                  </p>
+                  <p>
+                    Mr. Yuva values innovation, quality, and customer satisfaction. He leads by example, fostering a culture of excellence and continuous improvement within the company. His dedication to the industry and openness to new ideas inspire the team to strive for excellence in every aspect of their work.
+                  </p>
                 </div>
-                <div className="about-chairman">
-                    <div className="container">
-                        <h4 className="pt-4">Mr. Yogesh Chaudhary</h4>
-                        <h6>Director</h6>
-                        <h5 className="py-3">Director's Desk</h5>
-                        <div className="para">
-                            <p>Mr. Yogesh Chaudhary is the director and founder of CS MAX, a startup company that provides green energy solutions for businesses and industries. 
-                                He has a large client base across India and abroad, and he has over 20 years of experience in technical and technological fields.
-                            </p>
-                            <p>
-                                He is a visionary leader who believes in the power of renewable energy to transform the world. He is responsible for setting the strategic
-                                 direction and goals of the company, as well as overseeing the operations and finances. He is also involved in developing and maintaining relationships with key stakeholders, partners, and customers.
-                            </p>
-                            <p>
-                                His values accountability, leadership, decision-making, and collaboration as the core principles of his work. He leads by example and inspires his team to achieve excellence and innovation. He is 
-                                alwavs open to new ideas and feedback. and he encourages a culture of learning and growth within the company.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
     </div>
-  )
+  );
 }
 
-export default Company
+export default Company;

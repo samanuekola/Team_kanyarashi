@@ -61,8 +61,7 @@ const Services = () => {
     <div>
       <Sectioncoverimage/>
       <Servicesdetailssection services={services}/>
-      <Servicesgreensection/>
-      <Servicesgridsection/>
+      
     </div>
   )
 }

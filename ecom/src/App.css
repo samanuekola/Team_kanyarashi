@@ -225,8 +225,9 @@ input::placeholder {
     background-color: #1af11a;
 }
 .cards-height{
-    min-height: 320px;
+    min-height: 270px;
 }
+
 @media (max-width: 900px){
     section h1{
       font-size: 2rem;
