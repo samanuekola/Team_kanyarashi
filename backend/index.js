@@ -5,6 +5,7 @@ const svgCaptcha = require('svg-captcha');
 const dotenv = require('dotenv');
 const path = require('path');
 const say = require('say');
+const axios = require('axios');
 
 dotenv.config(); 
 
@@ -12,7 +13,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/captchageneration', {
   useNewUrlParser: true,
@@ -22,7 +22,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/captchage
 }).catch((error) => {
   console.error('Error connecting to MongoDB:', error);
 });
-
 
 const itemSchema = new mongoose.Schema({
   name: String,
@@ -63,6 +62,18 @@ app.get('/generate-captcha', (req, res) => {
   } else {
     const captcha = svgCaptcha.create();
     res.json({ data: captcha.data, text: captcha.text });
+  }
+});
+
+app.post('/verify-recaptcha', async (req, res) => {
+  const { token } = req.body;
+  const secretKey = '6LcydB4qAAAAANj_9P9qRkPtwFD9BY1OQONuyE6_'; // Replace with your reCAPTCHA Secret Key
+
+  try {
+    const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).send('Error verifying reCAPTCHA');
   }
 });
 
