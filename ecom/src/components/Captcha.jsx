@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReCAPTCHA from 'react-google-recaptcha';
 import '../Captcha.css'; 
+
 const Captcha = () => {
-  const [captchaType, setCaptchaType] = useState('image'); 
+  const [captchaType, setCaptchaType] = useState('image');
   const [captchaContent, setCaptchaContent] = useState('');
   const [captchaText, setCaptchaText] = useState('');
   const [userCaptcha, setUserCaptcha] = useState('');
   const [message, setMessage] = useState('');
   const [attempts, setAttempts] = useState(0);
   const [lockout, setLockout] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState('');
+  const [recaptchaVerified, setRecaptchaVerified] = useState(false);
+
+  const siteKey = '6LcydB4qAAAAABr_pIP_WAOMBBzOR37cyo3XV2zy'; // Replace with your reCAPTCHA Site Key
 
   useEffect(() => {
-    generateCaptcha();
+    if (captchaType !== 'google') {
+      generateCaptcha();
+    }
   }, [captchaType]);
 
   const generateCaptcha = async () => {
@@ -25,7 +33,7 @@ const Captcha = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (lockout) {
@@ -33,34 +41,60 @@ const Captcha = () => {
       return;
     }
 
-    if (userCaptcha === captchaText) {
+    if (captchaType === 'google') {
+      if (!recaptchaVerified) {
+        setMessage('Please complete the reCAPTCHA');
+        return;
+      }
       setMessage('Order successful');
       setAttempts(0);
-    } else {
-      const newAttempts = attempts + 1;
-      setAttempts(newAttempts);
-
-      if (newAttempts >= 2) {
-        setLockout(true);
-        setTimeout(() => {
-          setLockout(false);
-          setAttempts(0);
-        }, 30 * 60 * 1000);
-        setMessage('You need to wait for 30 minutes');
-      } else {
-        setMessage(`You have ${2 - newAttempts} attempts left`);
-      }
-
-      generateCaptcha();
+      return;
     }
 
-    setUserCaptcha('');
+    try {
+      const recaptchaResponse = await axios.post('http://localhost:3000/verify-recaptcha', { token: recaptchaToken });
+      if (!recaptchaResponse.data.success) {
+        setMessage('reCAPTCHA verification failed. Please try again.');
+        return;
+      }
+
+      if (userCaptcha === captchaText) {
+        setMessage('Order successful');
+        setAttempts(0);
+      } else {
+        const newAttempts = attempts + 1;
+        setAttempts(newAttempts);
+
+        if (newAttempts >= 2) {
+          setLockout(true);
+          setTimeout(() => {
+            setLockout(false);
+            setAttempts(0);
+          }, 30 * 60 * 1000);
+          setMessage('You need to wait for 30 minutes');
+        } else {
+          setMessage(`You have ${2 - newAttempts} attempts left`);
+        }
+
+        generateCaptcha();
+      }
+
+      setUserCaptcha('');
+    } catch (error) {
+      console.error('Error verifying reCAPTCHA:', error);
+      setMessage('Error verifying reCAPTCHA. Please try again.');
+    }
   };
 
   const handleCaptchaTypeChange = (e) => {
     setCaptchaType(e.target.value);
     setUserCaptcha('');
     setMessage('');
+  };
+
+  const onRecaptchaChange = (token) => {
+    setRecaptchaToken(token);
+    setRecaptchaVerified(true);
   };
 
   return (
@@ -95,23 +129,39 @@ const Captcha = () => {
             />
             Voice Captcha
           </label>
+          <label>
+            <input
+              type="radio"
+              value="google"
+              checked={captchaType === 'google'}
+              onChange={handleCaptchaTypeChange}
+            />
+            Google Captcha
+          </label>
         </div>
         {captchaType === 'voice' ? (
           <audio controls className="captcha-audio">
             <source src={captchaContent} type="audio/mp3" />
           </audio>
+        ) : captchaType === 'google' ? (
+          <ReCAPTCHA
+            sitekey={siteKey}
+            onChange={onRecaptchaChange}
+          />
         ) : (
           <div dangerouslySetInnerHTML={{ __html: captchaContent }} className="captcha-image" />
         )}
-        <div className="captcha-input-group">
-          <input
-            type="text"
-            value={userCaptcha}
-            onChange={(e) => setUserCaptcha(e.target.value)}
-            required
-            className="captcha-input"
-          />
-        </div>
+        {captchaType !== 'google' && (
+          <div className="captcha-input-group">
+            <input
+              type="text"
+              value={userCaptcha}
+              onChange={(e) => setUserCaptcha(e.target.value)}
+              required
+              className="captcha-input"
+            />
+          </div>
+        )}
         <button type="submit" disabled={lockout} className="captcha-button">
           Proceed to Payment
         </button>
