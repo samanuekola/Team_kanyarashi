@@ -40,7 +40,7 @@ const Cart = () => {
         <>
           <div className="row gy-4">
             {cartItems.map(item => (
-              <div key={item._id} className="col-12 col-md-6 col-lg-4">
+              <div key={item._id} className="col-12 col-md-6 col-lg-4 cart-size">
                 <div className="card">
                   <img src={item.imageUrl} className="card-img-top" alt={item.name} />
                   <div className="card-body">
