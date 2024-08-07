@@ -13,10 +13,11 @@ const Projectsdetailsection = ({ items }) => {
     } else {
       setCart([...carts, cartItem]);
 
-      // Send the item data to the backend
+      
       axios.post('http://localhost:3000/cart', cartItem)
         .then(response => {
           console.log('Item added to backend:', response.data);
+          alert("Added to Cart")
         })
         .catch(error => {
           if (error.response && error.response.status === 400) {
@@ -25,6 +26,7 @@ const Projectsdetailsection = ({ items }) => {
             console.error('There was an error adding the item to the backend!', error);
           }
         });
+
     }
 
     console.log(carts);
@@ -40,7 +42,7 @@ const Projectsdetailsection = ({ items }) => {
             <div className="p-4 border card-text">
               <h3>{i.title}</h3>
               <p className="py-2 project-cards">{i.content}</p>
-              <button className='bg-danger' onClick={() => addtocart(i.id, i.title, i.content, i.image)}>ADD to cart</button>
+              <button className='btn btn-success' onClick={() => addtocart(i.id, i.title, i.content, i.image)}>Add to cart</button>
             </div>
           </div>
         ))}

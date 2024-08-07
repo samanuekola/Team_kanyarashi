@@ -14,7 +14,7 @@ const Captcha = () => {
   const [recaptchaToken, setRecaptchaToken] = useState('');
   const [recaptchaVerified, setRecaptchaVerified] = useState(false);
 
-  const siteKey = '6LcydB4qAAAAABr_pIP_WAOMBBzOR37cyo3XV2zy'; // Replace with your reCAPTCHA Site Key
+  const siteKey = '6LcydB4qAAAAABr_pIP_WAOMBBzOR37cyo3XV2zy'; 
 
   useEffect(() => {
     if (captchaType !== 'google') {
@@ -45,51 +45,42 @@ const Captcha = () => {
       if (!recaptchaVerified) {
         setMessage('Please complete the reCAPTCHA');
         return;
-      }
-      setMessage('Order successful');
-      setAttempts(0);
-      return;
-    }
-
-    try {
-      const recaptchaResponse = await axios.post('http://localhost:3000/verify-recaptcha', { token: recaptchaToken });
-      if (!recaptchaResponse.data.success) {
-        setMessage('reCAPTCHA verification failed. Please try again.');
-        return;
-      }
-
-      if (userCaptcha === captchaText) {
+      } else {
         setMessage('Order successful');
         setAttempts(0);
+        return;
+      }
+    }
+
+    if (userCaptcha === captchaText) {
+      setMessage('Order successful');
+      setAttempts(0);
+    } else {
+      const newAttempts = attempts + 1;
+      setAttempts(newAttempts);
+
+      if (newAttempts >= 2) {
+        setLockout(true);
+        setTimeout(() => {
+          setLockout(false);
+          setAttempts(0);
+        }, 30 * 60 * 1000);
+        setMessage('You need to wait for 30 minutes');
       } else {
-        const newAttempts = attempts + 1;
-        setAttempts(newAttempts);
-
-        if (newAttempts >= 2) {
-          setLockout(true);
-          setTimeout(() => {
-            setLockout(false);
-            setAttempts(0);
-          }, 30 * 60 * 1000);
-          setMessage('You need to wait for 30 minutes');
-        } else {
-          setMessage(`You have ${2 - newAttempts} attempts left`);
-        }
-
-        generateCaptcha();
+        setMessage(`You have ${2 - newAttempts} attempts left`);
       }
 
-      setUserCaptcha('');
-    } catch (error) {
-      console.error('Error verifying reCAPTCHA:', error);
-      setMessage('Error verifying reCAPTCHA. Please try again.');
+      generateCaptcha();
     }
+
+    setUserCaptcha('');
   };
 
   const handleCaptchaTypeChange = (e) => {
     setCaptchaType(e.target.value);
     setUserCaptcha('');
     setMessage('');
+    setRecaptchaVerified(false); 
   };
 
   const onRecaptchaChange = (token) => {
@@ -123,15 +114,6 @@ const Captcha = () => {
           <label>
             <input
               type="radio"
-              value="voice"
-              checked={captchaType === 'voice'}
-              onChange={handleCaptchaTypeChange}
-            />
-            Voice Captcha
-          </label>
-          <label>
-            <input
-              type="radio"
               value="google"
               checked={captchaType === 'google'}
               onChange={handleCaptchaTypeChange}
@@ -139,11 +121,7 @@ const Captcha = () => {
             Google Captcha
           </label>
         </div>
-        {captchaType === 'voice' ? (
-          <audio controls className="captcha-audio">
-            <source src={captchaContent} type="audio/mp3" />
-          </audio>
-        ) : captchaType === 'google' ? (
+        {captchaType === 'google' ? (
           <ReCAPTCHA
             sitekey={siteKey}
             onChange={onRecaptchaChange}
