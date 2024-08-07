@@ -17,6 +17,7 @@ const Servicesdetailssection = ({ services }) => {
       axios.post('http://localhost:3000/cart', cartItem)
         .then(response => {
           console.log('Item added to backend:', response.data);
+          alert("Added to Cart")
         })
         .catch(error => {
           if (error.response && error.response.status === 400) {
@@ -41,7 +42,7 @@ const Servicesdetailssection = ({ services }) => {
             <div className="p-4 border card-text">
               <h3>{s.title}</h3>
               <p className="py-2 service-cards">{s.content}</p>
-              <button className='bg-danger' onClick={() => addtocart(s.id, s.title, s.content, s.image)}>ADD to cart</button>
+              <button className="btn btn-success" onClick={() => addtocart(s.id, s.title, s.content, s.image)}>Add to cart</button>
             </div>
           </div>
         ))}

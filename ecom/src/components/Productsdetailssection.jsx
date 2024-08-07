@@ -40,7 +40,7 @@ const Productsdetailssection = ({ items }) => {
           </div>
           <div className="col-12 col-md-6">
             <p>{i.content}</p>
-            <button className='bg-danger' onClick={() => addtocart(i.id, i.title, i.content, i.image)}>ADD to cart</button>
+            <button className='btn btn-success' onClick={() => addtocart(i.id, i.title, i.content, i.image)}>ADD to cart</button>
           </div>
         </div>
       )}

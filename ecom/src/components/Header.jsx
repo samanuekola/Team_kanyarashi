@@ -42,7 +42,7 @@ const Header = () => {
           </ul>
         </div>
         <div class="d-none d-lg-inline px-3">
-            <button class="btn-header p-3"><Link to="/cart">Cart</Link><i class="bi bi-arrow-right"></i></button>
+            <button class="nav-item btn-header p-3"><Link to="/cart" class="nav-link d-inline-block">Cart </Link><i class="bi bi-arrow-right px-2"></i></button>
         </div>
     </nav>
     </div>

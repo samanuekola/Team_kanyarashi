@@ -9,10 +9,10 @@ import image4 from '../updatedimages/cable4.jpeg'
 import { useState } from 'react'
 const Projects = () => {
   const [items,Setitems]=useState(
-    [ {id:1,title:"Strengthening Solar Supply Chain",content:"Solar technology has been improving rapidly in recent years. This is making solar panels more efficient and reliable. The expansion of the solar supply chain is a positive development for the environment and the economy.",image:image1},
-      {id:2,title:"Improved Turbine Design & Increased scale",content:"Wind turbines have become more efficient and reliable in recent years, thanks to improvements in design. This has made them more cost-effective to operate, and has helped to drive down the cost of wind energy.",image:image2},
-      {id:3,title:"Electric Vechile charging system",content:"Solar-powered EV charging stations offer increased availability, lower costs, sustainability, and flexibility. They can be installed anywhere there is sunlight, and can be generated and stored in a variety of ways.",image:image3},
-      {id:4,title:"Solar Energy Monitoring & Maintenance",content:"This topic will discuss the steps you can take to maintain your solar energy system, including cleaning the panels and inspecting the wiring.",image:image4}]
+    [ {id:1,title:"USB type B cable",content:"USB B cables are essential for connecting printers and other peripherals to your computer. These cables are known for their durability and reliable data transfer capabilities. The advancement in USB technology has enhanced connectivity and efficiency, making USB B cables a vital component for any tech setup",image:image1},
+      {id:2,title:"USB type B to OTG",content:"USB B to OTG cables are indispensable for connecting various peripherals to your mobile devices. These cables enable seamless data transfer and device control. The progression in OTG technology has improved versatility and reliability, making USB B to OTG cables an essential accessory for on-the-go connectivity.",image:image2},
+      {id:3,title:"USB Charger",content:"Chargers are crucial for keeping your devices powered up and ready to use. Modern chargers offer fast and efficient charging, ensuring your gadgets are always operational. The advancement in charging technology has enhanced convenience and reliability, making chargers an indispensable accessory for everyday life.",image:image3},
+      {id:4,title:"USB B to Type C",content:"USB B to Type C cables are essential for connecting older devices to modern laptops and smartphones. These cables ensure fast and reliable data transfer and charging. The advancement in Type C technology has improved compatibility and performance, making USB B to Type C cables a vital accessory for seamless connectivity.",image:image4}]
   )
   return (
     <div>
